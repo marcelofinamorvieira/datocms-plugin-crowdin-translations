@@ -27,7 +27,7 @@ export default function CrowdinSidebar({ ctx }: PropTypes) {
   const recordID = ctx.item?.id || '';
 
   useEffect(() => {
-    if (recordID)
+    if (recordID && crowdinIsSetup)
       fetchCrowdinStatus(
         ctx.plugin.attributes.parameters.crowdinProjectId as string,
         recordID,
@@ -84,7 +84,7 @@ export default function CrowdinSidebar({ ctx }: PropTypes) {
         sourceLocale={sourceLocale[0]}
       />
 
-      {!isLoading && !crowdinIsSetup && (
+      {!crowdinIsSetup && (
         <p>
           To use this plugin please setup the Crowdin API Key and project ID on
           the plugin configuration page
