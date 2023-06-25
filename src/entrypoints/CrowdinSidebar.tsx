@@ -45,7 +45,7 @@ export default function CrowdinSidebar({ ctx }: PropTypes) {
 
   return (
     <Canvas ctx={ctx}>
-      <LoadingSpinner isLoading={isLoading} />
+      <LoadingSpinner isLoading={isLoading} crowdinIsSetup={crowdinIsSetup} />
       <SendRecordButton
         ctx={ctx}
         setFileWasSubmited={setFileWasSubmited}

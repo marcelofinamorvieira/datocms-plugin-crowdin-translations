@@ -2,12 +2,13 @@ import { Spinner } from 'datocms-react-ui';
 
 type PropTypes = {
   isLoading: boolean;
+  crowdinIsSetup: boolean;
 };
 
-const LoadingSpinner = ({ isLoading }: PropTypes) => {
+const LoadingSpinner = ({ isLoading, crowdinIsSetup }: PropTypes) => {
   return (
     <>
-      {isLoading && (
+      {!crowdinIsSetup && isLoading && (
         <div style={{ height: '100px', position: 'relative' }}>
           <Spinner size={48} placement="centered" />
         </div>
