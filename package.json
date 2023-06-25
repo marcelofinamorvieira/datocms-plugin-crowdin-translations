@@ -1,7 +1,21 @@
 {
-  "name": "crowdin-translations",
+  "name": "datocms-plugin-crowdin-translations",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "homepage": "https://github.com/marcelofinamorvieira/datocms-plugin-crowdin-translations",
+  "description": "A plugin that allows you to integrate your Crowdin seemlesly with Dato",
+  "keywords": [
+    "datocms-plugin",
+    "crowdin",
+    "translation",
+    "localization"
+  ],
+  "datoCmsPlugin": {
+    "title": "Crowdin translations",
+    "coverImage": "docs/cover.jpeg",
+    "entryPoint": "build/index.html",
+    "permissions": []
+  },
   "dependencies": {
     "@types/node": "^18.16.17",
     "@types/react": "^18.2.11",
@@ -9,6 +23,7 @@
     "datocms-plugin-sdk": "^0.7.14",
     "datocms-react-ui": "^0.7.14",
     "react": "^18.2.0",
+    "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
     "typescript": "^4.9.5"
@@ -39,11 +54,5 @@
   },
   "devDependencies": {
     "cross-env": "^7.0.3"
-  },
-  "datoCmsPlugin": {
-    "title": "",
-    "previewImage": "",
-    "coverImage": "",
-    "entryPoint": "build/index.html"
   }
 }

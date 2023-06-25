@@ -1,3 +1,3 @@
-# [Your plugin name]
+# Crowdin Translations
 
-[Describe what your plugin does, and how users you can configure it! Screenshots are always welcome!]
+A plugin that allows you to integrate your Crowdin seemlesly with Dato
