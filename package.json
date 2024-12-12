@@ -1,6 +1,6 @@
 {
   "name": "datocms-plugin-crowdin-translations",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": false,
   "homepage": "https://github.com/marcelofinamorvieira/datocms-plugin-crowdin-translations",
   "description": "A plugin that allows you to integrate your Crowdin seemlesly with Dato",
@@ -12,7 +12,7 @@
   ],
   "datoCmsPlugin": {
     "title": "Crowdin translations",
-    "coverImage": "docs/cover.jpeg",
+    "coverImage": "docs/cover.png",
     "entryPoint": "build/index.html",
     "permissions": []
   },
