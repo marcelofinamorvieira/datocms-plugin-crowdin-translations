@@ -1,72 +1,84 @@
 import reconstructComplexFields from './reconstructComplexFields';
 
-export default function reconstructFlattenedNode(node: any) {
-  if (!node) return;
+// Interface for node content
+interface NodeContent {
+  [key: string]: unknown;
+}
 
-  const objectKey = Object.keys(node)[0];
+// Interface for flattened node structure
+interface FlattenedNode {
+  [key: string]: NodeContent;
+}
 
-  const level = objectKey
-    .split('£level')
-    [objectKey.split('£level').length - 1].split('£style')[0];
+// Type for child node
+interface ChildNode {
+  [key: string]: unknown;
+}
 
-  const type = objectKey.split('££node£type')[1].split('£level')[0];
+// Interface for node content properties
+interface NodeContentProps {
+  level?: number;
+  type?: string;
+  children?: Array<ChildNode | undefined>;
+  content?: Array<unknown>;
+  [key: string]: unknown;
+}
 
-  const style = objectKey
-    .split('£style')
-    [objectKey.split('£style').length - 1].split('£tags')[0];
+// Interface for reconstructed node
+interface ReconstructedNode extends NodeContentProps {
+  // Extend with any specific node properties
+  [key: string]: unknown;
+}
 
-  const tags = objectKey
-    .split('£tags')
-    [objectKey.split('£tags').length - 1].split('£')
-    .filter((tag) => !!tag);
+export default function reconstructFlattenedNode(node: Record<string, unknown> | null | undefined): ReconstructedNode | undefined {
+  if (!node) {
+    return undefined;
+  }
 
-  let blockObject;
+  const key = Object.keys(node)[0];
+  const content = node[key] as NodeContent;
+  const newNode: ReconstructedNode = {};
 
-  if (node[objectKey].children && node[objectKey].children.length) {
-    for (const [index, child] of node[objectKey].children.entries()) {
-      node[objectKey].children[index] = reconstructFlattenedNode(child);
+  const splitKey = key.split('£');
+  const level = splitKey[splitKey.length - 1];
+  const type = splitKey[splitKey.length - 2];
+
+  // Iterate through content attributes
+  for (const attribute in content) {
+    if (Object.prototype.hasOwnProperty.call(content, attribute)) {
+      const attrValue = content[attribute];
+      
+      if (attribute === 'content') {
+        if (Array.isArray(attrValue) && attrValue.length > 0) {
+          newNode.content = [];
+          
+          for (let i = 0; i < attrValue.length; i++) {
+            const item = attrValue[i];
+            if (item) {
+              newNode.content.push(reconstructComplexFields(item));
+            }
+          }
+        }
+      } else if (attribute === 'children') {
+        if (Array.isArray(attrValue) && attrValue.length > 0) {
+          newNode.children = [];
+          
+          for (let i = 0; i < attrValue.length; i++) {
+            const childNode = attrValue[i];
+            if (childNode) {
+              newNode.children.push(reconstructFlattenedNode(childNode as Record<string, unknown>));
+            }
+          }
+        }
+      } else {
+        newNode[attribute] = attrValue;
+      }
     }
   }
 
-  if (objectKey.includes('£typeblock£level')) {
-    for (const attribute in node[objectKey][Object.keys(node[objectKey])[0]]) {
-      node[objectKey][Object.keys(node[objectKey])[0]][attribute] =
-        reconstructComplexFields(
-          node[objectKey][Object.keys(node[objectKey])[0]][attribute]
-        );
-    }
-
-    blockObject = {
-      children: [{ text: '' }],
-      blockModelId: Object.keys(node[objectKey])[0]
-        .split('££block£blockTypeID')[1]
-        .split('£blockID')[0],
-      ...node[objectKey][Object.keys(node[objectKey])[0]],
-    };
-  }
-  let newNode;
-
-  if (blockObject) {
-    newNode = {
-      ...blockObject,
-    };
-  } else {
-    newNode = {
-      ...node[objectKey],
-    };
-  }
-
-  if (tags.length && tags[0] !== '') {
-    for (const tag of tags) {
-      newNode[tag] = true;
-    }
-  }
-
-  if (level !== 'NULL') newNode.level = parseInt(level);
-
+  if (level !== 'NULL') newNode.level = Number.parseInt(level, 10);
+  
   if (type !== 'NULL') newNode.type = type;
-
-  if (style !== 'NULL') newNode.style = style;
 
   return newNode;
 }

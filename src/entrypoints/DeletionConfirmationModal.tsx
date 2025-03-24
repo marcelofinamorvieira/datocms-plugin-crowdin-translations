@@ -1,4 +1,4 @@
-import { RenderModalCtx } from 'datocms-plugin-sdk';
+import type { RenderModalCtx } from 'datocms-plugin-sdk';
 import { Button, Canvas } from 'datocms-react-ui';
 import s from './styles.module.css';
 

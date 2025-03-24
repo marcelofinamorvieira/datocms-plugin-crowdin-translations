@@ -1,8 +1,8 @@
-import { RenderItemFormSidebarPanelCtx } from 'datocms-plugin-sdk';
-import { Button, Canvas, Spinner } from 'datocms-react-ui';
+import type { RenderItemFormSidebarPanelCtx } from 'datocms-plugin-sdk';
+import { Canvas } from 'datocms-react-ui';
 import { useEffect, useState } from 'react';
 import SendRecordButton from '../components/SendRecordButton';
-import { ProgressObject } from '../utils/types';
+import type { ProgressObject } from '../utils/types';
 import fetchCrowdinStatus from '../utils/fetchCrowdinStatus';
 import 'react-circular-progressbar/dist/styles.css';
 import FetchLocaleButton from '../components/FetchLocaleButton';
@@ -41,7 +41,7 @@ export default function CrowdinSidebar({ ctx }: PropTypes) {
         }
         setIsLoading(false);
       });
-  }, []);
+  }, [recordID, crowdinIsSetup, ctx]);
 
   return (
     <Canvas ctx={ctx}>

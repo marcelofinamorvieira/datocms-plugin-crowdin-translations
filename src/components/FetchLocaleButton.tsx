@@ -1,9 +1,9 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import s from '../entrypoints/styles.module.css';
-import { ProgressObject } from '../utils/types';
+import type { ProgressObject } from '../utils/types';
 import { Button } from 'datocms-react-ui';
 import handleFetchLocale from '../utils/handleFetchLocale';
-import { RenderItemFormSidebarPanelCtx } from 'datocms-plugin-sdk';
+import type { RenderItemFormSidebarPanelCtx } from 'datocms-plugin-sdk';
 
 type PropTypes = {
   localeProgresses: ProgressObject;
@@ -39,7 +39,7 @@ const FetchLocaleButton = ({
                 <CircularProgressbar
                   styles={buildStyles({
                     pathTransitionDuration: 1,
-                    pathColor: `rgba(62, 152, 199)`,
+                    pathColor: 'rgba(62, 152, 199)',
                     textColor: 'rgba(62, 152, 199)',
                     trailColor: '#d6d6d6',
                   })}
@@ -68,7 +68,7 @@ const FetchLocaleButton = ({
                 <CircularProgressbar
                   styles={buildStyles({
                     pathTransitionDuration: 1,
-                    pathColor: `#66CC66`,
+                    pathColor: '#66CC66',
                     textColor: '#66CC66',
                     trailColor: '#d6d6d6',
                   })}

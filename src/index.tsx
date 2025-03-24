@@ -1,8 +1,6 @@
 import {
-  IntentCtx,
-  ItemType,
-  RenderItemFormSidebarPanelCtx,
-  RenderModalCtx,
+  type RenderItemFormSidebarPanelCtx,
+  type RenderModalCtx,
   connect,
 } from 'datocms-plugin-sdk';
 import { render } from './utils/render';
@@ -21,7 +19,7 @@ connect({
         return render(<DeletionConfirmationModal ctx={ctx} />);
     }
   },
-  itemFormSidebarPanels(model: ItemType, ctx: IntentCtx) {
+  itemFormSidebarPanels() {
     return [
       {
         id: 'crowdin',
@@ -32,7 +30,7 @@ connect({
     ];
   },
   renderItemFormSidebarPanel(
-    sidebarPanelId,
+    sidebarPanelId: string,
     ctx: RenderItemFormSidebarPanelCtx
   ) {
     render(<CrowdinSidebar ctx={ctx} />);

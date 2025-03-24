@@ -1,5 +1,5 @@
-import { Modal } from 'datocms-plugin-sdk';
-import { ProgressObject } from './types';
+import type { Modal } from 'datocms-plugin-sdk';
+import type { ProgressObject } from './types';
 
 export default async function handleDeleteFile(
   openModal: (modal: Modal) => Promise<unknown>,

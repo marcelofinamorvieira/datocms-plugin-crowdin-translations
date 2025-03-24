@@ -1,27 +1,33 @@
 export default function replaceKeys(
-  obj: any,
+  obj: unknown,
   targetKey: string,
   replacementKey: string
-): object {
+): unknown {
   if (typeof obj !== 'object' || obj === null) {
     return obj;
   }
 
   if (Array.isArray(obj)) {
-    return obj.map((item: any) => replaceKeys(item, targetKey, replacementKey));
+    return obj.map((item) => replaceKeys(item, targetKey, replacementKey));
   }
 
-  const updatedObj: any = {};
+  const updatedObj: Record<string, unknown> = {};
 
-  for (let key in obj) {
-    if (key === targetKey) {
-      updatedObj[replacementKey] = replaceKeys(
-        obj[key],
-        targetKey,
-        replacementKey
-      );
-    } else {
-      updatedObj[key] = replaceKeys(obj[key], targetKey, replacementKey);
+  for (const key in obj as object) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (key === targetKey) {
+        updatedObj[replacementKey] = replaceKeys(
+          (obj as Record<string, unknown>)[key],
+          targetKey,
+          replacementKey
+        );
+      } else {
+        updatedObj[key] = replaceKeys(
+          (obj as Record<string, unknown>)[key],
+          targetKey,
+          replacementKey
+        );
+      }
     }
   }
 

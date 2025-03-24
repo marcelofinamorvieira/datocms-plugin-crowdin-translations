@@ -1,8 +1,8 @@
 import { Button } from 'datocms-react-ui';
-import { ProgressObject } from '../utils/types';
+import type { ProgressObject } from '../utils/types';
 import s from '../entrypoints/styles.module.css';
 import handleDeleteFile from '../utils/handleDeleteFile';
-import { Modal } from 'datocms-plugin-sdk';
+import type { Modal } from 'datocms-plugin-sdk';
 
 type PropTypes = {
   isLoading: boolean;
